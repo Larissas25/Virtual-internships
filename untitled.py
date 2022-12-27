@@ -10,6 +10,7 @@ Created on Mon Dec 26 23:20:28 2022
 import json
 import random
 import urllib.request
+import webbrowser
 
 
 QUERY= "http://localhost:8080/query?id={}"
@@ -28,13 +29,15 @@ def getRatio(price_a, price_b):
     return price_a/price_b
 
 #Main
+quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read()) 
+
 if __name__== "_main_":
     #Query the price once every N seconds
+   
     for _ in range(N):
-     quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+       """  Update to get the ratio"""
 
-""" update to get the ratio """
-prices = []
+prices = {}
 for quote in quotes:
     stock, bid_price, ask_price, price= getDataPoint(quote)
     prices[stock]= price
